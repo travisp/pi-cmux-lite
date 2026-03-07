@@ -63,6 +63,10 @@ export function buildPiCommand(cwd: string, options?: { sessionFile?: string; pr
 	return commandParts.join(" ");
 }
 
+export function buildShellCommand(cwd: string, command: string): string {
+	return ["cd", shellEscape(cwd), "&&", "exec", "sh", "-lc", shellEscape(command)].join(" ");
+}
+
 function collectSurfaceRefs(panes: CmuxPaneInfo[]): Set<string> {
 	const refs = new Set<string>();
 	for (const pane of panes) {

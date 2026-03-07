@@ -6,7 +6,7 @@ Pi package with cmux-powered terminal integrations for [Pi](https://pi.dev).
 
 [Pi](https://pi.dev) works well in the terminal, but terminal-native actions like workspace notifications, editor launching, and pane orchestration are better handled by cmux. This package collects Pi extensions that use the cmux API instead of baking those workflows into Pi itself.
 
-It currently includes cmux-powered notifications, split commands, zoxide jumps, review workflows, and split-based task handoff.
+It currently includes cmux-powered notifications, split commands, generic tool launchers, zoxide jumps, review workflows, and split-based task handoff.
 
 ## Usage
 
@@ -34,6 +34,7 @@ If pi is already running, use:
 |---|---|---|
 | Notifications | automatic via `cmux-notify` | Sends `cmux notify` alerts when Pi waits, completes work, or ends in error/abort. |
 | Plain splits | `/cmv`, `/cmh` | Opens a new cmux split and starts a fresh Pi session in the same project. |
+| Tool splits | `/cmo <command...>`, `/cmoh <command...>` | Opens a new cmux split and runs any shell command there in the current project directory. |
 | Directory jumps | `/cmz <query>`, `/cmzh <query>` | Resolves a zoxide match or direct directory path, then starts Pi in a split there. |
 | Continuation handoff | `/cmcv`, `/cmch` | Opens a new split with a related handoff session in the current checkout. |
 | Continuation worktree | `/cmcv -c <branch> [--from <ref>] [note]`, `/cmch -c <branch> [--from <ref>] [note]` | Creates a new branch worktree from the current `HEAD` or an explicit base ref, then starts Pi in a split there with handoff context. |
@@ -46,6 +47,7 @@ If pi is already running, use:
 Extensions:
 - `cmux-notify`
 - `cmux-split`
+- `cmux-open`
 - `cmux-zoxide`
 - `cmux-review`
 - `cmux-continue`
@@ -127,6 +129,30 @@ pi 'Review the auth flow in this repo'
 ```
 
 in the same project directory.
+
+### cmux generic tool splits
+
+- `/cmo <command...>`
+  - opens a new split to the right
+  - runs the given shell command in the same `cwd`
+- `/cmoh <command...>`
+  - opens a new split below
+  - runs the given shell command in the same `cwd`
+
+Alias still available for symmetry:
+- `/cmov` → `/cmo`
+
+Examples:
+
+```text
+/cmo hx
+/cmo lazygit
+/cmo npm test
+/cmoh npm run dev
+/cmo watch -n 1 git status --short
+```
+
+Commands are executed via `sh -lc` in the current project directory, so multi-word shell commands work as expected.
 
 ### cmux zoxide jump
 

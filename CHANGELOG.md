@@ -9,6 +9,7 @@
 - Added `/z` and `/zh` via `cmux-zoxide` to open a new split from a zoxide match and start pi in that directory.
 - Added `cmux-review` with `/review-v` and `/review-h`, plus bundled `code-review` skill and `/review` / `/review-diff` prompt templates for focused review workflows, including GitHub pull request review via `gh` when given a PR URL.
 - Added `cmux-continue` with `/cmcv` and `/cmch` for split-based task handoff in the current checkout or by creating a git worktree branch with `-c <branch>`.
+- Added `cmux-open` with `/cmo`, `/cmov`, and `/cmoh` to open a new split and run any shell command there.
 
 ### Changed
 
