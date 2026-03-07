@@ -12,6 +12,9 @@ import { basename } from "node:path";
 const DEFAULT_THRESHOLD_MS = 15000;
 const DEFAULT_DEBOUNCE_MS = 3000;
 const NOTIFY_TIMEOUT_MS = 5000;
+const DEFAULT_NOTIFY_LEVEL = "all";
+
+type NotifyLevel = "all" | "medium" | "low" | "disabled";
 
 interface RunState {
 	startedAt: number;
@@ -34,6 +37,14 @@ function getNumberFromEnv(name: string, fallback: number): number {
 	if (!value) return fallback;
 	const parsed = Number.parseInt(value, 10);
 	return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
+}
+
+function getNotifyLevelFromEnv(): NotifyLevel {
+	const value = process.env.PI_CMUX_NOTIFY_LEVEL?.trim().toLowerCase();
+	if (value === "all" || value === "medium" || value === "low" || value === "disabled") {
+		return value;
+	}
+	return DEFAULT_NOTIFY_LEVEL;
 }
 
 function pluralize(count: number, singular: string, plural: string = `${singular}s`): string {
@@ -165,6 +176,14 @@ function buildSubtitle(hasRunError: boolean, state: RunState, durationMs: number
 	return "Waiting";
 }
 
+function shouldNotify(level: NotifyLevel, subtitle: string): boolean {
+	if (level === "disabled") return false;
+	if (level === "all") return true;
+	if (level === "medium") return subtitle === "Task Complete" || subtitle === "Error";
+	if (level === "low") return subtitle === "Error";
+	return true;
+}
+
 function createEmptyRunState(): RunState {
 	return {
 		startedAt: Date.now(),
@@ -179,6 +198,7 @@ function createEmptyRunState(): RunState {
 export default function cmuxNotifyExtension(pi: ExtensionAPI) {
 	const thresholdMs = getNumberFromEnv("PI_CMUX_NOTIFY_THRESHOLD_MS", DEFAULT_THRESHOLD_MS);
 	const debounceMs = getNumberFromEnv("PI_CMUX_NOTIFY_DEBOUNCE_MS", DEFAULT_DEBOUNCE_MS);
+	const notifyLevel = getNotifyLevelFromEnv();
 	const title = process.env.PI_CMUX_NOTIFY_TITLE || "Pi";
 
 	let runState = createEmptyRunState();
@@ -250,6 +270,9 @@ export default function cmuxNotifyExtension(pi: ExtensionAPI) {
 		const durationMs = Date.now() - runState.startedAt;
 		const runError = summarizeRunError(event.messages, runState.firstToolError);
 		const subtitle = buildSubtitle(Boolean(runError), runState, durationMs, thresholdMs);
+		if (!shouldNotify(notifyLevel, subtitle)) {
+			return;
+		}
 		const body = runError || summarizeSuccess(runState, durationMs, thresholdMs);
 		await sendNotification(subtitle, body);
 	});

@@ -87,6 +87,12 @@ Current notification types:
     - `edit failed for README.md`
     - `bash command failed`
 
+You can control notification noise with one level setting:
+- `PI_CMUX_NOTIFY_LEVEL=all` - `Waiting`, `Task Complete`, and `Error`
+- `PI_CMUX_NOTIFY_LEVEL=medium` - `Task Complete` and `Error`
+- `PI_CMUX_NOTIFY_LEVEL=low` - `Error` only
+- `PI_CMUX_NOTIFY_LEVEL=disabled` - disable cmux notifications
+
 Notification bodies are summarized from the run itself:
 - changed files from `edit` and `write`
 - reviewed files from `read`
@@ -228,6 +234,7 @@ The split review commands start a fresh pi session with a focused bootstrap prom
 
 ### Environment variables
 
+- `PI_CMUX_NOTIFY_LEVEL` - notification level: `all`, `medium`, `low`, or `disabled` (default: `all`)
 - `PI_CMUX_NOTIFY_THRESHOLD_MS` - duration threshold before a run is labeled `Task Complete` instead of `Waiting` (default: `15000`)
 - `PI_CMUX_NOTIFY_DEBOUNCE_MS` - minimum delay between duplicate notifications (default: `3000`)
 - `PI_CMUX_NOTIFY_TITLE` - notification title override (default: `Pi`)
