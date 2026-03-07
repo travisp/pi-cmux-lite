@@ -203,15 +203,4 @@ export default function cmuxNotifyExtension(pi: ExtensionAPI) {
 		await sendNotification(subtitle, body);
 	});
 
-	pi.registerCommand("cmux-notify-test", {
-		description: "Send a test cmux notification",
-		handler: async (_args, ctx) => {
-			const result = await sendNotification("Waiting", "Test notification from pi-cmux");
-			if (result.ok) {
-				ctx.ui.notify("Sent cmux test notification", "info");
-			} else {
-				ctx.ui.notify(`cmux notify failed: ${result.error || "unknown error"}`, "error");
-			}
-		},
-	});
 }

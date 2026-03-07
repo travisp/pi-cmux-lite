@@ -31,6 +31,7 @@ If pi is already running, use:
 ### Included extensions
 
 - `cmux-notify` - sends `cmux notify` alerts for pi completion and error states
+- `cmux-split` - opens new cmux split panels and starts fresh pi sessions in the same project
 
 ### cmux-notify notifications
 
@@ -70,6 +71,30 @@ Notification bodies are summarized from the run itself:
 - searches from `grep` and `find`
 - shell activity from `bash`
 - first tool failure, if any
+
+### cmux split commands
+
+- `/cmux-v`
+  - opens a new split to the right
+  - starts a fresh `pi` session in the same `cwd`
+
+- `/cmux-h`
+  - opens a new split below
+  - starts a fresh `pi` session in the same `cwd`
+
+Both commands also accept optional initial prompt text. Example:
+
+```text
+/cmux-v Review the auth flow in this repo
+```
+
+That launches the new split and starts:
+
+```bash
+pi 'Review the auth flow in this repo'
+```
+
+in the same project directory.
 
 ### Environment variables
 
