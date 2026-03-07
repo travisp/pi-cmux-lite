@@ -32,6 +32,7 @@ If pi is already running, use:
 
 - `cmux-notify` - sends `cmux notify` alerts for pi completion and error states
 - `cmux-split` - opens new cmux split panels and starts fresh pi sessions in the same project
+- `cmux-zoxide` - opens a new split from a zoxide match and starts pi in the target directory
 
 ### cmux-notify notifications
 
@@ -95,6 +96,26 @@ pi 'Review the auth flow in this repo'
 ```
 
 in the same project directory.
+
+### cmux zoxide jump
+
+- `/z <query>`
+  - resolves the query with `zoxide query`
+  - opens a new split to the right
+  - starts a fresh pi session in the matched directory
+
+- `/zh <query>`
+  - resolves the query with `zoxide query`
+  - opens a new split below
+  - starts a fresh pi session in the matched directory
+
+Example:
+
+```text
+/z mono
+```
+
+If the argument is already a valid directory path, `/z` and `/zh` use it directly instead of querying zoxide.
 
 ### Environment variables
 
