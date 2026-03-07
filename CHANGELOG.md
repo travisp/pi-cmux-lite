@@ -18,6 +18,7 @@
 ### Fixed
 
 - Adjusted `cmux-notify` so the notification only shows `Error` when the run itself ends in an error or abort, instead of surfacing handled intermediate tool failures as final errors.
+- Updated `npx pi-cmux` installs to copy bundled `skills/` and `prompts/` in addition to `extensions/`, so installer-based installs include the review workflows documented in the package.
 
 ### Removed
 

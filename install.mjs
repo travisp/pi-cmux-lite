@@ -9,7 +9,7 @@ const PACKAGE_NAME = "pi-cmux";
 const EXTENSION_DIR = path.join(os.homedir(), ".pi", "agent", "extensions", "pi-cmux");
 const SOURCE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FILES_TO_COPY = ["package.json", "README.md", "CHANGELOG.md"];
-const DIRECTORIES_TO_COPY = ["extensions"];
+const DIRECTORIES_TO_COPY = ["extensions", "skills", "prompts"];
 
 const args = process.argv.slice(2);
 const isRemove = args.includes("--remove") || args.includes("-r");
