@@ -44,24 +44,9 @@ export default function cmuxSplitExtension(pi: ExtensionAPI) {
 	);
 	registerSplitCommand(
 		pi,
-		"cmux-v",
-		"right",
-		"Alias for /cmv",
-		"Opened a new vertical cmux split",
-	);
-
-	registerSplitCommand(
-		pi,
 		"cmh",
 		"down",
 		"Open a new horizontal cmux split and start a fresh pi session",
-		"Opened a new horizontal cmux split",
-	);
-	registerSplitCommand(
-		pi,
-		"cmux-h",
-		"down",
-		"Alias for /cmh",
 		"Opened a new horizontal cmux split",
 	);
 }

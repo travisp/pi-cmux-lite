@@ -1,7 +1,7 @@
 {
-  "name": "pi-cmux",
+  "name": "pi-cmux-lite",
   "version": "0.1.8",
-  "description": "Pi package with cmux-powered terminal integrations",
+  "description": "Lightweight fork of pi-cmux with cmux notifications and split helpers for Pi",
   "author": "Javi Molina",
   "license": "MIT",
   "type": "module",
@@ -21,14 +21,11 @@
   "bugs": {
     "url": "https://github.com/travisp/pi-cmux-lite/issues"
   },
-  "bin": {
-    "pi-cmux": "install.mjs"
-  },
   "files": [
-    "extensions/",
-    "skills/",
-    "prompts/",
-    "install.mjs",
+    "extensions/cmux-notify.ts",
+    "extensions/cmux-split.ts",
+    "extensions/cmux-open.ts",
+    "extensions/cmux-core.ts",
     "README.md",
     "CHANGELOG.md"
   ],
@@ -37,13 +34,9 @@
   },
   "pi": {
     "extensions": [
-      "./extensions/index.ts"
-    ],
-    "skills": [
-      "./skills"
-    ],
-    "prompts": [
-      "./prompts"
+      "./extensions/cmux-notify.ts",
+      "./extensions/cmux-split.ts",
+      "./extensions/cmux-open.ts"
     ]
   },
   "peerDependencies": {

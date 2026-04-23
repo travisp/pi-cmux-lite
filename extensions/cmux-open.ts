@@ -46,14 +46,6 @@ export default function cmuxOpenExtension(pi: ExtensionAPI) {
 	);
 	registerOpenCommand(
 		pi,
-		"cmov",
-		"right",
-		"Alias for /cmo",
-		"Opened a tool split to the right",
-	);
-
-	registerOpenCommand(
-		pi,
 		"cmoh",
 		"down",
 		"Open a new lower split and run any shell command there",

@@ -2,41 +2,22 @@
 
 ## Repo overview
 
-This repository contains `pi-cmux`, a small Pi package that adds cmux-powered terminal workflows to Pi.
+This repository contains `pi-cmux-lite`, a lightweight fork of `pi-cmux` with a small subset of cmux-powered workflows for Pi.
 
-Current extensions:
-- `extensions/cmux-notify.ts` — sends `cmux notify` alerts when Pi finishes, waits for input, or ends in an error/abort state
-- `extensions/cmux-split.ts` — adds split commands that open a new cmux pane and start a fresh Pi session in the same working directory
-- `extensions/cmux-zoxide.ts` — adds zoxide-based split commands that jump to a matched directory and start Pi there
+Published extensions:
+- `extensions/cmux-notify.ts` — cmux-backed notifications for Pi runs
+- `extensions/cmux-split.ts` — fresh Pi sessions in a new cmux split
+- `extensions/cmux-open.ts` — arbitrary shell commands in a new cmux split
+- `extensions/cmux-core.ts` — shared cmux helpers
 
-Other important files:
-- `README.md` — user-facing package documentation
-- `CHANGELOG.md` — unreleased and released changes
-- `install.mjs` — installer/removal entrypoint used by `npx pi-cmux`
-- `package.json` — package metadata for npm and Pi
-
-## How the repo works
-
-- This is a TypeScript-based Pi package, but the repo currently does not include a local TypeScript toolchain or build step.
-- Extensions are loaded from `./extensions` via the `pi.extensions` entry in `package.json`.
-- The package is published to npm and installed in Pi via `pi install npm:pi-cmux` or `npx pi-cmux`.
+Source-of-truth files:
+- `package.json` — published package contents and Pi extension entrypoints
+- `README.md` — brief user-facing description of the lite fork
+- `CHANGELOG.md` — lite fork change notes
 
 ## Editing guidelines
 
-- Keep README examples and behavior descriptions aligned with the extension behavior.
-- Update `CHANGELOG.md` for user-visible changes.
+- Keep changes aligned with the lite subset only.
 - Prefer small, focused edits.
-- Preserve the existing style: concise docs, simple utilities, minimal dependencies.
-
-## Release / push checklist
-
-Before pushing changes:
-- bump the npm version
-- update `CHANGELOG.md` if behavior changed
-- make sure `README.md` matches the current behavior
-- review the git diff for accidental changes
-
-## Notes for future agents
-
-- There is currently no local `tsc` dependency in this repo, so TypeScript validation may not be available unless TypeScript is installed separately.
-- If you change publishable package metadata or release behavior, check `package.json`, `README.md`, and `CHANGELOG.md` together.
+- Update `package.json`, `README.md`, and `CHANGELOG.md` together when the published surface changes.
+- Extra upstream files may remain in the repo, but `package.json` is the source of truth for what ships.
