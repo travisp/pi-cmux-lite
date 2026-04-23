@@ -13,13 +13,13 @@
     "terminal",
     "notifications"
   ],
-  "homepage": "https://github.com/javiermolinar/pi-cmux#readme",
+  "homepage": "https://github.com/travisp/pi-cmux-lite#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/javiermolinar/pi-cmux.git"
+    "url": "git+https://github.com/travisp/pi-cmux-lite.git"
   },
   "bugs": {
-    "url": "https://github.com/javiermolinar/pi-cmux/issues"
+    "url": "https://github.com/travisp/pi-cmux-lite/issues"
   },
   "bin": {
     "pi-cmux": "install.mjs"
